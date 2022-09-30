@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <!-- 
+        <button id="zwieksz" onclick="zwieksz();">+</button>
+        <button id="zmniejsz" onclick="zmniejsz();">-</button>
+        <p id="liczba"> 0 </p> 
+        -->
+        Pole: <p id="pole">0</p>
+        Obwód: <p id="obwod">0</p>
+    </body>
+    <script>
+        var a = prompt("Podaj bok A:");
+        var b = prompt("Podaj bok B:");
+
+        var pole = a * b;
+        var obwod = (2 * a) + (2 * b);
+
+        document.getElementById("pole").innerHTML = pole;
+        document.getElementById("obwod").innerHTML = obwod;
+
+        
+        // var i = 0;
+        // function zwieksz() {
+        //     i = i + 1;
+        //     document.getElementById("liczba").innerHTML = i;
+        // }
+        // function zmniejsz() {
+
+        // }
+    </script>
+</html>
