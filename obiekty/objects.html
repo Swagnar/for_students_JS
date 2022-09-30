@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<script>
+    var osoba = {
+        imie: "Adrian",
+        nazwisko: "Kalec",
+        wiek: 50 
+    }
+
+    //Metody kopiowania zawartości obiektów
+    // #1
+    var osoba2 = {
+        ...osoba
+    }
+    // #2
+    //var osoba2 = Object.assign({}, osoba);
+
+    osoba["plec"] = false;
+    delete osoba.plec;
+
+    // for(let i in osoba) {
+    //     document.write("<h1>" + osoba[i] + "</h1>")
+    // }
+
+    var gra = {
+        nazwa: "Cyberpunk 2077",
+        studio: "CDPR",
+        wersje: {
+            Alfa: "2015",
+            Beta: "2017",
+            1.0: "2019",
+        }
+    }
+    for(let i in gra.wersje) {
+        document.write(i + " - " + gra.wersje[i] + "<br>");
+    }
+    
+    document.write("<br><br><br>");
+
+
+    var aktor = {
+        imie: "Keanu",
+        nazwisko: "Reeves",
+        pelneImie: function() {
+            return this.imie + " " + this.nazwisko;
+        },
+        filmy: [
+            {nazwa: "Matrix", rok: 1999, obsada: ["Morfeusz", "Hefajstos"]},
+            {nazwa: "John Wick", rok: 2014, obsada: ["Ten zły", "Ten dobry"]}
+        ]
+    }
+    for(let i in aktor.filmy) {
+        document.write("<h1>" + aktor.filmy[i].nazwa + "</h1>" + " - " + aktor.filmy[i].rok);
+        for(let j in aktor.filmy[i].obsada) {
+            document.write(aktor.filmy[i].obsada[j]);
+        }
+    }
+    aktor.wiek = function() {
+        return Math.floor(Math.random() * 100) + 18;
+    }
+
+    document.write(aktor.pelneImie() + "<br>");
+    document.write(aktor.pelneImie().toUpperCase() + "<br>");
+    document.write(aktor.wiek() + "<br>");
+
+
+    // document.write(JSON.stringify(aktor));
+    // var aktorJSON = JSON.stringify(aktor);
+    // document.write(aktorJSON["imie"])
+
+
+
+    // for(let i in aktor) {
+    //     for(let j in aktor.filmy) {
+    //         document.write(aktor.filmy[j].nazwa);
+    //     }
+    //     //document.write(aktor[i]);
+    // }
+    
+    //console.log(aktor);
+    //document.write(aktor);
+    // document.getElementById("dane").innerHTML = "aktor";
+    
+
+
+    // osoba2.imie = "Michał";
+
+    // console.log(osoba);
+    // console.log(osoba2);
+
+
+
+</script>
+<body>
+    <p id="dane"></p>
+</body>
+</html>
