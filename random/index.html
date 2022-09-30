@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Losowanie</title>
+    <link rel="stylesheet" href="css/table.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <script src="klasy.js"></script>
+    <script src="random.js"></script>
+</head>
+<body onload="zmien_klase();">
+    <div id="navbar">
+        <button onclick="wylosuj();">Wylosuj</button>
+        <select id="wybor-klasy" onchange="zmien_klase();">
+            <option value="klasa1">Klasa 1</option>
+            <option value="klasa2">Klasa 2</option>
+        </select>
+    </div>
+    <div id="table">
+        <table id="tabela-uczniow">
+            <thead>
+                <tr>
+                    <th colspan="4" id="nazwa-klasy">klasa</th>
+                </tr>
+                <tr>
+                    <th>Imie</th>
+                    <th>Nazwisko</th>
+                    <th>Data odpowiedzi</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td colspan="4">
+                        <pre id="wylosowana-liczba">Wylosowano: </pre>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
