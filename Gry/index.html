@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Obiekty JS, Obiekty JSON</title>
+    <link rel="stylesheet" href="styl.css">
+    <!-- 
+        Najpierw musimy zaimportować plik JS który zawiera nasze obiekty 
+    -->
+    <script src="dane.js"></script>
+    <!-- 
+        Dopiero potem skrypt który je obsłuży, w innym wypadku
+        plik 'skrypt.js' nie będzie miał na czym pracować :v
+     -->
+    <!-- <script src="skrypt.js"></script> -->
+</head>
+<body onload="przygotuj_interfejs()">
+    <button onclick="usun_dane();">Usuń zapisane dane</button>
+    <div class="building-list">
+        <div class="building">
+            <img class="building-icon" src="img/wood-axe.png">
+            <span class="building-level woodcutter">1</span>
+        </div>
+        <div class="building">
+            <img class="building-icon" src="img/war-pick.png">
+            <span class="building-level quary">1</span>
+        </div>
+    </div>
+    
+</body>
+    <!-- 
+        Stworzyłem dodatkowy plik który będzie zawierać funkcje pomocnicze takie jak:
+            zapis danych do przeglądarki
+            odczytanie danych z przeglądarki
+            wypisanie do konsoli naszych obiektów
+     -->
+    <script src="funkcje.js"></script>
+    <!-- 
+        Czemu linia 15 jest wykomentowana? Ponieważ skrypt JS będzie wypisywał dane
+        na stronie, ale najpierw strona musi się cała załadować.
+        Dlatego importujemy skrypt po znaczniku </body>
+    -->
+    <script src="skrypt.js"></script>
+</html>
