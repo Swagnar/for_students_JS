@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body {
+            overflow: scroll;
+        }
+        #panel-lewy {
+            width: 40%;
+            background-color: darkgray;
+            height: 100%;
+            display: none;
+            float: left;
+        }
+        #panel-prawy {
+            width: 40%;
+            background-color: hotpink;
+            height: 100%;
+            position: fixed;
+            left: 40%;
+        }
+        /* #menu {
+            height: 50px;
+            width: 100%;
+            background-color: tomato;
+            position: fixed;
+            top: 0;
+        } */
+    </style>
+</head>
+<body>
+    <button id="drwal" onclick="pokaz_okienko_budynku(this.id)">Drwal</button>
+    <button id="farma" onclick="pokaz_okienko_budynku(this.id)">Farma</button>
+
+    <hr>
+
+    <button onclick="pokaz_div()">Bohater</button>
+
+    <hr>
+
+    <!-- <div id="menu">
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aperiam, ducimus vitae repellendus iste blanditiis rem, voluptate, adipisci provident repudiandae similique nisi soluta minus error. Delectus quam doloribus aliquid repellat libero?
+    </div> -->
+    <div id="panel-lewy">
+        <h1>[nazwa gracza]</h1>
+    </div>
+    <div id="panel-prawy">
+        <h1>[ekwipunek]</h1>
+    </div>
+
+    <dialog id="okienko">
+        <h1 id="nazwa-budynku">Witaj świecie</h1>
+        <hr>
+        <ul>
+            <li>jeden</li>
+            <li>jeden</li>
+            <li>jeden</li>
+            <li>jeden</li>
+            <li>jeden</li>
+            <li>jeden</li>
+        </ul>        
+    </dialog>
+</body>
+<script>
+    function pokaz_div() {
+        var panel = document.getElementById("panel-lewy")
+        if(panel.style.display == "none") {
+            panel.style.display = "block";
+        } else {
+            panel.style.display = "none";
+        }
+    }
+    function pokaz_okienko_budynku(budynek) {
+        var okienko = document.getElementById("okienko")
+        okienko.showModal()
+        if(budynek == "drwal") {
+            document.getElementById("nazwa-budynku").innerHTML = "Drwal"
+        }
+        if(budynek == "farma") {
+            document.getElementById("nazwa-budynku").innerHTML = "Farma"
+        }
+        console.log(budynek)
+    }
+</script>
+</html>
