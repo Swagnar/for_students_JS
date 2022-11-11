@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <script>
+
+    var szablonPrzedmiotu = (nazwa, typ, cena) => {
+      var tmp = {
+        nazwa: nazwa,
+        typ: typ,
+        cena: cena
+      }
+      return tmp
+    }
+
+    var hero = {
+      imie: "Bożydar",
+      hp: 100,
+      mp: 50,
+      statystyki: {
+        "Siła": 3,
+        "Wytrzymałość": 3,
+        "Arkana": 1
+      },
+      eq: [
+        { 
+          nazwa: "Sztylet", 
+          typ: "Broń",
+          cena: 25,
+          obrMin: 7,
+          obrMax: 10
+        },
+        {
+          nazwa: "Skórzany pancerz",
+          typ: "Pancerz",
+          cena: 125,
+          pancerz: 7,
+          buffy: [ 0, 3, 0 ]
+        }
+      ],
+      inw: [
+        {
+          nazwa: "Koło sera",
+          typ: "Jedzenie",
+          cena: 5,
+          ilosc: 2
+        },
+        {
+          nazwa: "Grymuar",
+          typ: "Księga",
+          cena: 250,
+          ilosc: 1,
+          tekst: "Lorem Ipsum"
+        }
+      ],
+
+      /**
+       * Dodaje przedmioty z raportu do `inw` obiektu `hero`
+       * @param {array} raport - tablica przechowująca przedmioty
+       */
+      zlootuj(raport) {
+        raport.forEach( (przedmiotZraportu) => {
+          var tmpPrzedmiot = szablonPrzedmiotu(
+            przedmiotZraportu[0], 
+            przedmiotZraportu[1], 
+            przedmiotZraportu[2]
+          )
+
+          var reszta = przedmiotZraportu.slice(3)
+          this.dodaj_do_inw(
+            przedmiotZraportu[0],
+            przedmiotZraportu[1],
+            przedmiotZraportu[2],
+            reszta
+          )
+        })
+      },
+
+      /**
+       * Dodaje przedmiot do pola `inw`
+       * @param {string} nazwa - nazwa przedmiotu
+       * @param {string} typ - typ przedmiotu
+       * @param {int} cena - wartość przedmiotu
+       * @param {array} reszta - pozostałe informacje nt. przedmiotu 
+       *                         (ilość, tekst, pancerz etc. ) w zależności od typu
+       */
+      dodaj_do_inw(nazwa, typ, cena, ...reszta) {
+        
+        document.write(typeof(reszta))
+        // let tmp = JSON.stringify(reszta)
+        // document.write(JSON.parse(tmp))
+        // console.log(JSON.parse(tmp))
+        var tmpPrzedmiot = szablonPrzedmiotu(nazwa, typ, cena)
+        
+        if(typ == "Broń") {
+          
+          tmpPrzedmiot.obrMin = reszta[0]
+          tmpPrzedmiot.obrMax = reszta[1]
+
+        } else if(typ == "Pancerz") {
+
+          tmpPrzedmiot.pancerz = reszta[0]
+          tmpPrzedmiot.buffy = reszta[1]
+
+        } else if(typ == "Księga" || typ == "Notatka") {
+
+          tmpPrzedmiot.ilosc = reszta[0]
+          tmpPrzedmiot.tekst = reszta[1]
+
+        }
+
+        this.inw.push(tmpPrzedmiot)
+      },
+
+      /** 
+       * Usuwa przedmiot z inwentarza
+       * @param {string} nazwa - Nazwa przedmiotu do usunięcia
+       * @param {int} ilosc - Ilość przedmiotu do usunięcia 
+       */
+      usun_z_inw(nazwa, ilosc) {
+
+        // Dla każdego przedmiotu w inwentarzu obiektu `hero` wykonaj:
+        this.inw.forEach( (przedmiot) => {
+
+          // 1. Sprawdź czy nazwa przedmiotu w `inw` jest taka sama
+          //  jak przedmiotu który chcemy usunąć (parametr `nazwa`)
+          
+          if(przedmiot.nazwa == nazwa) {
+
+            // 2. Jeżeli przy wywołaniu funkcji została podana `ilosc`
+            if(ilosc) {
+
+              // 3. Zmniejsz ilość przedmiotu w ekwipunku
+              przedmiot.ilosc = przedmiot.ilosc - ilosc
+
+              // 4. Jeżeli po zmniejszeniu ilośći wychodzi 0 lub mniej, usuń na stałe
+              // przedmiot
+              if(przedmiot.ilosc <= 0) {
+
+                // 5. Nowy ekwipunek będzie taki sam jak stary z pominięciem
+                // usuwanego przemdiotu
+
+                // Metoda filter zwróci do zmiennej noweInt wszystko co było w
+                // inwentarzu, oprócz przedmiotu z nazwą jaką podaliśmy do usunięcia
+                let noweInw = this.inw.filter( (item) => {
+                  return item.nazwa != nazwa
+                })
+
+                // 6. Nadpisz stary ekwipunek nowym
+                this.inw = noweInw
+              }
+
+            }
+          }
+        })
+      }
+    }
+
+    // Przedmioty uzyskane w walce bądź zadaniu
+
+    var raport = [
+      [ 
+        "Spalony list", // 0
+        "Notatka",      // 1
+        0,              // 2
+        1, 
+        "[...] złoto zakopałem pod mostem" 
+      ],
+      [ 
+        "Buty kawalerzysty", 
+        "Pancerz", 
+        140, 
+        5, 
+        [ 2, 1, 0] 
+      ]
+    ]
+
+    hero.zlootuj(raport)
+    
+    hero.dodaj_do_inw("Złamany miecz", "Broń", 50, 9, 12)
+
+    hero.usun_z_inw("Koło sera", 2)
+
+    // document.write(JSON.stringify(hero))
+
+    //  GR 1
+    //  Obiekt `potwór` - nazwa, wartość HP, obrażenia
+    //  funkcja obiektu `hero` - atakuj(przeciwnik)
+    //    jeżeli hero ma srebrny oręż (np: typBroni: "Srebrna") to zadawane obrażenia 
+    //    nie mają negatywnego mnożnika
+    //    jeżeli `hero` nie ma srebrnego oręża zadaje on o połowe mniej obrażeń
+    //
+    //  # wyświetlić HP obiektu `potwór` przed i po wykonaniu funkcji atakuj()
+
+
+
+    //  GR 2
+    //  Obiekt `ognisko` - lokalizacja, prawda/fałsz czy rozpalono po raz pierwszy
+    //  W obiektcie `hero` musi zawarta być tabela zawierająca "cene" za ulepszenie umiejętności 
+    //  (np. takie pole jak w kodzie powyżej o nazwie "statystyki")
+    //
+    //  funkcja obiektu hero - ulepsz_umiejętność( ognisko, nazwaUmiejętności )
+    //    funkcja wykona się tylko jeżeli zostanie przekazany parametr `ognisko` oraz jeżeli
+    //    obiekt `hero` posiada wystarczającą ilość waluty wymaganej do ulepszenia
+    //
+    //  # wyświetlić statystyki obiektu `hero` przed i po ulepszeniu umiejętności
+
+
+
+    //  GR 3
+    //  Przedmioty w EQ i INW muszą zawierać pole "Radioaktywność" i niech przyjmują liczby zmiennoprzecinkowe
+    //  od 0 do 1
+    //  funkcja obiektu hero - zlicz_radiacje()
+    //    policzy ile łącznie punktów radioaktywności ma `hero`
+    //    jeżeli powyżej 1 - niech jego HP spada o 25%
+    //
+    //  # wyświetlić HP obiektu `hero` przed i po zliczeniu radioaktywności i zadaniu obrażeń
+
+
+
+    //  GR 4
+    //  Budynki społeczne mające dawać zadowolenie
+    //  Brak pewnych budynków ma powodować zaniedowolenie (np. drogi, tawerna, mury obronne, rynek)
+    //
+    //  funkcja obiektu village - zlicz_szczęście()
+    //    jeżeli zadowolenie mieszkańców jest pozytywne, w budynkach produkcyjnych (tartak, farma)
+    //    wzrasta produkcja o 25%, jeżeli negatywne, spada o 25%
+    //
+    //  # wyświetlić pozostałe budynki:
+    //      <nazwa-budynku> : <wartość-zadowolenia>
+    //
+    //  # wyświetlić budynki produkcyjne:
+    //      <nazwa-budynku> : <produkcja> | jeżeli negatywna = na czerwono, jeżeli pozytywna = na zielono
+
+
+
+    //  GR 5
+    //  Obiekt `village` musi zawierać zasób będący walutą np. złoto
+    //  W programie niech wystepuje kopia obiektu `village` np. `village2`
+    //
+    //  funkcja - kup(wioska1, wioska2, zasób, cena)
+    //  funkcja - sprzedaj(wioska1, wioska2, zasób, cena) 
+    //
+    // Jak zrobić kopię obiektu:
+    var wioska = {}
+    var wioska2 = {...wioska}
+    //
+    // kupowanie zabiera walute z naszej osady i dodaje zasoby
+    // sprzedawanie zabiera zasoby i dodaje walute
+    //
+    // # wyświetlić zasoby obiektu `village` przed i po zakupie oraz sprzedaniu
+
+
+  </script>
+</head>
+<body>
+</body>
+</html>
