@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Village</title>
+  <script>
+
+    var Village = {
+      nazwa: "Czikago",
+
+        drewno: 100,
+        kamien: 100,
+        deuter: 100,
+
+      budynki: {
+        produkcyjne: [
+        {
+          nazwa: "tartak",
+          poziom: 1,
+          produkcja: [25, 33, 40, 48],
+        },
+        {
+          nazwa: "kamieniołom",
+          poziom: 1,
+          produkcja: [20, 33, 40, 48]
+        }
+        ],
+        socjalne: [
+        {
+          nazwa: "drogi",
+          poziom: 0,
+          bonusDoProdukcji: [ 0.03, 0.09, 0.13 ]
+        }],
+      }
+    }
+
+    var prod = Village.budynki.produkcyjne
+    var socj = Village.budynki.socjalne
+
+
+    function load_form() {
+      const form = document.getElementById("form-id")
+
+      prod.forEach( (bud) => {
+        let labelHTML = document.createElement("label")
+        let labelTXT = document.createTextNode(bud.nazwa.charAt(0).toUpperCase()+bud.nazwa.slice(1))
+        let inputHTML = document.createElement("input")
+        let br = document.createElement("br")
+
+        inputHTML.setAttribute('type', 'number')
+        inputHTML.setAttribute('id', bud.nazwa+"-input")
+        labelHTML.appendChild(labelTXT)
+
+        form.appendChild(labelHTML)
+        form.appendChild(inputHTML)
+        form.appendChild(br)
+      })
+      socj.forEach( (bud) => {
+        let labelHTML = document.createElement("label")
+        let labelTXT = document.createTextNode(bud.nazwa.charAt(0).toUpperCase()+bud.nazwa.slice(1))
+        let inputHTML = document.createElement("input")
+        let br = document.createElement("br")
+
+        inputHTML.setAttribute('type', 'number')
+        inputHTML.setAttribute('id', bud.nazwa+"-input")
+        labelHTML.appendChild(labelTXT)
+
+        form.appendChild(labelHTML)
+        form.appendChild(inputHTML)
+        form.appendChild(br)
+      })
+
+      let submit = document.createElement("input")
+      submit.setAttribute('value', 'Zmień poziom')
+      submit.setAttribute('type', 'submit')
+
+      form.appendChild(submit)
+    }
+    function make_table() {
+      const table = document.getElementById("table-id")
+
+      // table.innerHTML = ""
+
+      function make_thead() {
+        const thead = document.createElement('thead')
+        const tr = document.createElement('tr')
+        thead.appendChild(tr)
+
+        prod.forEach( (bud) => {
+          let th = document.createElement('th')
+          let thTXT = document.createTextNode(bud.nazwa.charAt(0).toUpperCase()+bud.nazwa.slice(1))
+
+          th.appendChild(thTXT)
+          thead.appendChild(th)
+
+        })
+        socj.forEach( (bud) => {
+          let th = document.createElement('th')
+          let thTXT = document.createTextNode(bud.nazwa.charAt(0).toUpperCase()+bud.nazwa.slice(1))
+
+          th.appendChild(thTXT)
+          thead.appendChild(th)
+        })
+
+        table.appendChild(thead)
+      }
+      function make_tbody() {
+
+        const tbody = document.createElement('tbody')
+        const tr1 = document.createElement('tr')
+        const tr2 = document.createElement('tr')
+
+        prod.forEach( (bud) => {
+          let td1 = document.createElement('td')
+          let td1TXT = document.createTextNode(bud.poziom)
+          let td2 = document.createElement('td')
+          let td2TXT = document.createTextNode(bud.produkcja[bud.poziom-1])
+
+          td1.appendChild(td1TXT)
+          td2.appendChild(td2TXT)
+
+          tr1.appendChild(td1)
+          tr2.appendChild(td2)
+        })
+        socj.forEach( (bud) => {
+          let td1 = document.createElement('td')
+          let td1TXT = document.createTextNode(bud.poziom)
+          let td2 = document.createElement('td')
+          let td2Txt
+          if(bud.poziom == 0) {
+            td2TXT = document.createTextNode('Brak')
+          } else {
+            td2TXT = document.createTextNode(bud.bonusDoProdukcji[bud.poziom-1])
+          }
+          td1.appendChild(td1TXT)
+          td2.appendChild(td2TXT)
+          tr1.appendChild(td1)
+          tr2.appendChild(td2)
+        })
+        tbody.appendChild(tr1)
+        tbody.appendChild(tr2)
+        table.appendChild(tbody)
+      }
+
+      make_thead()
+      make_tbody()
+    }
+    // function show_building_info() {
+    //
+    // }
+
+    function load_document() {
+      load_form()
+      make_table()
+    }
+
+
+  </script>
+  <style>
+    label {
+      width: 150px;
+      margin-right: 20px;
+      text-align: right;
+      float: left;
+    }
+    input[type='submit'] {
+      margin-left: 150px;
+    }
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    table {
+      margin-left: 75px;
+      margin-top: 20px;
+    }
+    th, td {
+      width: 100px;
+      text-align: center;
+    }
+    #building-info-div {
+      width: 500px;
+      height: 300px;
+      border: 5px solid lightblue;
+      margin: 10px 30px;
+    }
+    #building-info-div h1{
+      font-size: 50px;
+      text-align: center;
+    }
+    #building-info-div h2 {
+      font-size: 35px;
+      text-align: center;
+
+    }
+    #building-info-div p {
+      font-size: 35px;
+      text-align: center;
+
+    }
+  </style>
+</head>
+<body onload="load_document()">
+  <div id="set-level-form">
+    <form id="form-id" onsubmit="set_levels(); return false;"></form>
+  </div>
+  <div id="buildings-table">
+    <table id="table-id">
+    </table>
+  </div>
+  <hr>
+  <div id="building-info-div">
+
+  </div>
+</body>
+</html>
