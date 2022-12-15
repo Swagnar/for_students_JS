@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Krypto</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <script>
+const alfabet = ['A','Ą','B','C','Ć','D','E','Ę','F','G','H','I','J','K','L','Ł','M','N','Ń','O','Ó','P','R','S','Ś','T','U','W','Y','Z','Ż','Ź'," ", "-", "_", ".", "&","?", "!", "@", "#", "/"];
+  </script>
+</head>
+<body style="background-color: black; height: 100%;">
+
+
+  <!-- 
+    # Pojemnik głównej kolumny 
+  -->
+  <div class="columns is-centered">
+
+    <!-- 
+      # Główna kolumna 
+    -->
+    <div class="column is-three-fifths-desktop is-10-mobile is-offset-1-mobile" style="margin-top: 15vh;">
+      <!-- 
+        ## 'Pudełko' dla szyfru CEZARA
+       -->
+      <div class="box content has-text-centered">
+        <h1>Szyfr Cezara</h1>
+        <!-- 
+          ### 'Pudełko' z szyfrowaniem 
+        -->
+        <div class="box">
+          <div class="field">
+            <!-- Tekst do zaszyfrowania -->
+          </div>
+          <div class="field">
+            <!-- Przesunięcie liter -->
+          </div>
+          <div class="field has-text-centered">
+            <!-- Przycisk do szyfrowania -->
+          </div>
+          <div id='cezar-wynik-div' class="notification is-success has-text-centered" hidden>
+            <button class="delete"></button>
+            <span class='is-uppercase' id="cezar-wynik"></span>
+          </div>
+        </div>
+      
+        <!-- 
+          ### 'Pudełko z deszyfrowaniem' 
+        -->
+        <div class="box">
+          <div class="field">
+            <!-- Tekst do odszyfrowania -->
+          </div>
+          <div class="field">
+            <!-- Przesunięcie liter -->
+          </div>
+          <div class="field has-text-centered">
+            <!-- Przycisk do odszyfrowania -->
+          </div>
+          <div id="cezar-wynik-re-div" class="notification is-danger has-text-centered is-multiline" hidden>
+            <button class="delete"></button>
+            <span class="is-uppercase" id="cezar-wynik-re"></span>
+          </div>
+        </div>
+      </div>
+      
+
+      
+    </div>
+  </div>
+</body>
+</html>
