@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mierzenie czasu wykonywania funkcji</title>
+</head>
+<!-- 
+  fib(5) ~ 5 > 1, więc fib(4) i fib(3).
+  fib(4) ~ 4 > 1, więc fib(3) i fib(2).
+  fib(3) ~ 3 > 1, więc fib(2) i fib(1).
+  fib(2) ~ 2 > 1, więc fib(1) i fib(0).
+  fib(1) i fib(0) zwracają 1 i rekurencja się 'odwija'
+  fib(2) zwraca sumę 1 i 1, co daje 2.
+  fib(3) zwraca sumę 2 i 1, co daje 3.
+  fib(4) zwraca sumę 3 i 2, co daje 5.
+  fib(5) zwraca sumę 5 i 3, co daje 8. 
+-->
+<body>
+  <p>
+    Rekurencja: <code id="reku"></code>
+  </p>
+  <p>
+    Iteracja: <code id="iter"></code>
+  </p>
+  <script>
+    function fib(n) {
+      if(n <= 1) { return n }
+      else {
+        return fib(n-1) + fib(n-2)
+      }
+    }
+    let start = performance.now()
+    for(let i = 0; i < 35; i++) {
+      fib(i)
+    }
+    let end = performance.now()
+
+    document.getElementById('reku').innerText = `${end-start}ms`
+
+    let n1 = 0, n2 = 1, n
+
+    start = performance.now()
+    for(i=0; i<1000; i++) {
+      console.log(n1)
+      n = n1 + n2
+      n1 = n2
+      n2 = n
+    }
+    end = performance.now()
+
+    document.getElementById('iter').innerText = `${end-start}ms`
+  </script>
+</body>
+</html>
