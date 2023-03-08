@@ -6,8 +6,8 @@
 **okienka** - wyskakujące okienko, znacznik <dialog> i div ze stylem display: none;<br>
 **random** - aplikacja do losowania ucznia do odpowiedzi <br>
 **cezar.html** - aplikacja do kodowania i odkodowania szyfru Cezara <br>
-**fibonacci.html** - dwie funkcje obliczające kolejne liczby ciągu Fibonacciego oraz mierzenie czasu ich wykonywania
-**zdarzenia.html** - proste użycie zdarzeń onload, onkeyup, onkeydown, oninput, onmouseover, onmouseout
+**fibonacci.html** - dwie funkcje obliczające kolejne liczby ciągu Fibonacciego oraz mierzenie czasu ich wykonywania <br>
+**zdarzenia.html** - proste użycie zdarzeń onload, onkeyup, onkeydown, oninput, onmouseover, onmouseout <br>
   
 https://download-directory.github.io/ - stronka do pobrania pojedynczego folderu z repo
 
