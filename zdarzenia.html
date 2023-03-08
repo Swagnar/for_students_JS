@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #mysz {
+            width: 250px;
+            height: 250px;
+            background-color: red;
+        }
+    </style>
+</head>
+<body onload="odcisnieto(event)">
+    <div id="mysz" onmouseover="najechane(this)" onmouseout="odjechane(this)"></div>
+    <input type="text" onkeydown="wcisnieto(event)" onkeyup="odcisnieto(event)" oninput="wpisywano(this)">
+    <p id="wynik"></p>
+    <p id="wynik2"></p>
+    <button onclick="alert('Wciśnięto');konsola()">Alert</button>
+    
+    
+    <script>
+function najechane(element) {
+    element.setAttribute('style', 'background-color: blue;')
+}
+function odjechane(element) {
+    //console.log(element)
+    element.style.backgroundColor = "red"
+}
+function wcisnieto(zdarzenie) {
+    //console.log(zdarzenie)
+    var przycisk = zdarzenie.code
+    document.getElementById("wynik").innerHTML = "Wciśnięto: " + przycisk
+}
+function odcisnieto(zdarzenie) {
+    document.getElementById("wynik").innerHTML = "Nic nie jest wciśnięte"
+}
+function wpisywano(element) {
+    var wynik = document.getElementById("wynik2")
+    var tekst = element.value
+    wynik.innerHTML = tekst
+}
+function konsola() {
+    console.log("Witaj świecie")
+}
+    </script>
+</body>
+</html>
