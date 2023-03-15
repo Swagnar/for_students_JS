@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="pole-pesel">
+    <input type="text" id="pesel" placeholder="PESEL">
+    <button onclick="pesel()">Sprawdź</button>
+    <span id="pesel-wynik"></span>
+  </div>
+  <div id="pole-user">
+    <input type="text" id="user" placeholder="user">
+    <button onclick="user()">Sprawdź</button>
+    <span id="user-wynik"></span>
+  </div>
+  <div id="pole-email">
+    <input type="text" id="email" placeholder="email">
+    <button onclick="email()">Sprawdź</button>
+    <span id="email-wynik"></span>
+  </div>
+  <script>
+    // nie może:
+    // - zaczynać się od @ albo .
+    // - nie posiadać nic po @
+    // - nie posiadać . po @
+    // - mieć . zaraz po @    -> @.
+    // - mieć . zaraz przed @ -> .@
+    function email() {
+      const EMAIL = document.getElementById('email').value
+      const wynik = document.getElementById('email-wynik')
+      console.log(EMAIL.indexOf('@'))
+      let blad = 0
+
+      if(
+        EMAIL.indexOf('@') == -1 || 
+        EMAIL.indexOf('@') == 0  ||
+        EMAIL.indexOf('.') == 0
+        ) {
+          blad++
+        } else {
+          let przedAt = EMAIL.slice(0, EMAIL.indexOf('@'))
+          let poAt = EMAIL.slice(EMAIL.indexOf('@')+1)
+
+          // jeżeli po @ nie ma .
+          if(!poAt.includes('.')) {blad++}
+
+          // jeżeli po @ występuje .
+          if(poAt[0] == ".") {blad++}
+
+          // jeżeli przed @ występuje .
+          
+
+
+
+          console.log(przedAt)
+          console.log(poAt)
+
+        }
+    }
+    function user() {
+      const USER = document.getElementById('user').value
+      const wynik = document.getElementById('user-wynik')
+      let n = USER.length
+
+      // console.log(USER)
+      console.log(USER[n-1])
+      console.log(USER[n-2])
+      if(USER[n-1].match(/[0-9]/) && USER[n-2].match(/[0-9]/)) {
+        wynik.innerHTML = "Poprawne"
+      } else {
+        wynik.innerHTML = "Błąd"
+      }
+      
+      
+
+    }
+    function pesel() {
+      const PESEL = document.getElementById('pesel').value
+      const wynik = document.getElementById('pesel-wynik')
+
+      if(PESEL.length == 11) {
+        let nieLiczba = 0
+        for(let i =0; i < 11; i++) {
+          if(!PESEL[i].match(/[0-9]/)) {
+            nieLiczba++
+          }
+        }
+        if(nieLiczba == 0) {
+          wynik.innerHTML = "Poprawny"
+        } else {
+        wynik.innerHTML = "Błąd"
+        }
+      } else {
+        wynik.innerHTML = "Błąd"
+      }
+    }
+  </script>
+</body>
+</html>
