@@ -3,7 +3,7 @@
 **Gry** - przykładowy projekt gry RTS w przeglądarce <br>
 **funkcje** - przykłady tego czym są funkcje, parametry i argumenty <br>
 **obiekty** - przykład tworzenia obiektów w JS <br>
-**okienka** - wyskakujące okienko, znacznik <dialog> i div ze stylem display: none;<br>
+**okienka** - wyskakujące okienko, znacznik `dialog` oraz div ze stylem display: none;<br>
 **random** - aplikacja do losowania ucznia do odpowiedzi <br>
 **calc.html** - aplikacja kalkulatora <br>
 **cezar.html** - aplikacja do kodowania i odkodowania szyfru Cezara <br>
