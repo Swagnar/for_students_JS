@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    :root {
+      --gradient: linear-gradient(90deg, darkblue 0%, purple 100%);
+      --kolor-jasny: rgb(158, 110, 253);
+      --kolor-ciemny: rgb(100, 28, 243);
+    }
+    button { border: none; border-radius: 5px;}
+    body {
+      background-image: var(--gradient);
+      background-repeat: repeat-y;
+      background-size: cover;
+      height: 100vh;
+    }
+    #display-input,
+    #operator,
+    #error-log {
+      background-color: white;
+    }
+    #kontener {
+      width: 50%;
+      backdrop-filter: blur(5px);
+      margin: 1rem auto;
+      border: thin solid white;
+      border-radius: 5px;
+      padding: .5rem;
+      background-image: var(--gradient)
+    }
+    #display {
+      display: grid;
+      grid-template-columns: 75% 25%;
+    }
+    #display-input {
+      border: none;
+      border-radius: 5px;
+      height: 2rem;
+      text-align: right;
+      float: left;
+    }
+    #operator {
+      text-align: center;
+      color: var(--kolor-jasny);
+      height: 2.1rem;
+      margin-left: .2rem;
+      border-radius: 5px;
+      float: left;
+      font-size: 1.5rem;
+    }
+    #btns {
+      padding-top: .2rem;
+      clear: both;
+      display: grid;
+      gap: .2rem;
+      grid-template-columns: repeat(4, auto);
+      grid-template-rows: repeat(4, 3rem);
+    }
+    #btns button { font-size: 2rem;}
+
+    #result-btn {
+      grid-column: 1 / 5;
+      background-color: var(--kolor-ciemny);
+      color: white;
+    }
+    #result-btn:hover { background-color: rgb(0, 26, 255);}
+    #clear-btn:hover  { background-color: rgb(255, 26,0);}
+    #clear-btn {
+      background-color: var(--kolor-jasny);
+      color: white;
+    }
+    #error-log {
+      color: orangered;
+      border-radius: 5px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div id="kontener">
+    <div id="display">
+      <input type="text" id="display-input" disabled>
+      <div id="operator"></div>
+    </div>
+    <div id="btns">
+      
+
+      <button>7</button>
+      <button>8</button>
+      <button>9</button>
+      <button onclick="zmienOperator('+')">+</button>
+
+      <button>4</button>
+      <button>5</button>
+      <button>6</button>
+      <button onclick="zmienOperator('-')">-</button>
+
+      <button>1</button>
+      <button>2</button>
+      <button>3</button>
+      <button onclick="zmienOperator('/')">&div;</button>
+
+      <button onclick="wyczysc()" id="clear-btn">C</button>
+      <button>0</button>
+      <button onclick="dodajKropke()">.</button>
+      <button onclick="zmienOperator('*')">&times;</button>
+
+      <button onclick="aryt()" id="result-btn">=</button>
+
+    </div>
+    <div>
+      <p id="error-log"></p>
+    </div>
+  </div>
+  <script>
+  const btnsList = document.querySelectorAll("#btns > button")
+  const display = document.getElementById('display-input')
+  const error = document.getElementById('error-log')
+  const operatorDisplay = document.getElementById('operator')
+
+  var operator = ""
+  var tmp = 0
+
+  function wyczysc() {
+    display.value = ""
+  }
+  function zmienOperator(op) {
+    if(display.value == "") {
+      error.innerText = "Nie wpisano żadnej liczby"
+      return false
+    }
+    operator = op
+    tmp = Number(display.value)
+    operatorDisplay.innerText = operator
+    wyczysc()
+  }
+
+  function dodajKropke() {
+    if(display.value.includes(".")) return false
+    else if(display.value == "") return false
+    else { display.value = display.value + "." }
+  }
+  function dodajCyfre(event) {
+    let cyfra = event.currentTarget.innerText
+    let aktualnaWartoscWyswietlacza = display.value
+    
+    if(aktualnaWartoscWyswietlacza == "" && cyfra == 0) {
+      error.innerHTML = "Nie można zacząć od cyfry 0"
+      return false
+    }
+    if(aktualnaWartoscWyswietlacza.includes("=")) {
+      aktualnaWartoscWyswietlacza = ""
+    }
+    display.value = aktualnaWartoscWyswietlacza + cyfra
+  }
+  function aryt() {
+    if(!operator) {
+      error.innerText = "Nie wybrano operatora działania arytmetycznego"
+    } else {
+      let aktualnaWartoscWyswietlacza = Number(display.value)
+      let wynik
+      switch(operator) {
+        case "+":
+          wynik = tmp + aktualnaWartoscWyswietlacza
+          break
+        case "-":
+          wynik = tmp - aktualnaWartoscWyswietlacza
+          break
+        case "*":
+          wynik = tmp * aktualnaWartoscWyswietlacza
+          break
+        case "/":
+          wynik = tmp / aktualnaWartoscWyswietlacza
+          break
+      }
+      display.value = `${tmp} ${operator} ${aktualnaWartoscWyswietlacza} = ${wynik}`
+      operatorDisplay.innerText = ""
+    }
+  }
+
+  btnsList.forEach( (btn) => {
+    if(btn.innerHTML.match(/[0-9]/)) {
+      btn.addEventListener('click', dodajCyfre)
+      // btn.cyfra = btn.innerHTML
+    }
+  })
+  
+  </script>
+</body>
+</html>
